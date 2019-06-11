@@ -45,7 +45,7 @@ The API is built around a simple idea. You send inputs (an image or video) to th
 
 ## Usage example
 
-_For more examples and usage, please refer to the [Wiki][faces-detection]._
+_For more examples and usage, please refer to the [faces-detection][faces-detection]._
 
 ## Meta
 
