@@ -1,8 +1,6 @@
 # SmartBrain-APi
 > Node.js REST API
 
-One to two paragraph statement about your product and what it does.
-
 ## Features
 
 * Clarifai
