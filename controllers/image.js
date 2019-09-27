@@ -18,9 +18,8 @@ const handleImage = (req, res, db) => {
     .increment("entries", 1)
     .returning(["entries", "face_entries"])
     .then(data => {
-      const result = stringBuilder.buildCountersReults(data);
-
-       res.json(result);
+      const result = stringBuilder.buildCountersResults(data[0]);
+      res.status(200).json(result);
     })
     .catch(err => {
       res.status(400).json("unable to get entries");

@@ -5,20 +5,19 @@ function replaceString(str) {
   return result.filter(s => s !== "_").join("");
 }
 
-function buildCountersReults(items) {
+function buildCountersResults(items) {
   let counters = {};
-  for (let key in items[0]) {
+  for (let key in items) {
     if (key === "entries") {
-      counters[key] = items[0][key];
+      counters[key] = items[key];
     } else {
       let newKeyName = replaceString(key);
-      counters[newKeyName] = items[0][key];
+      counters[newKeyName] = items[key];
     }
   }
-  console.log(counters)
   return counters;
 }
 
 module.exports = {
-  buildCountersReults
+  buildCountersResults
 };

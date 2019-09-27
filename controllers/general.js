@@ -1,4 +1,5 @@
 const manager = require("../Common/manager");
+const stringBuilder = require("../Common/helpers");
 
 const handleApiCall = (req, res) => {
   manager.app.models
@@ -17,7 +18,8 @@ const handleImage = (req, res, db) => {
     .increment("entries", 1)
     .returning(["entries", "general_entries"])
     .then(data => {
-      res.json(data[0]);
+      const result = stringBuilder.buildCountersResults(data[0]);
+      res.status(200).json(result);
     })
     .catch(err => {
       res.status(400).json("unable to get general entries");
