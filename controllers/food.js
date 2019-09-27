@@ -17,7 +17,7 @@ const handleImage = (req, res, db) => {
     .increment("entries", 1)
     .returning(["entries", "food_entries"])
     .then(data => {
-      res.json(data[0]);
+      res.status(200).json(data[0]);
     })
     .catch(err => {
       res.status(400).json("unable to get food entries");
