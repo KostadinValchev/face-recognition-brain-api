@@ -1,6 +1,6 @@
-const manager = require("../Common/manager");
-const stringBuilder = require("../Common/helpers");
-const validate = require("../Common/validations");
+const manager = require("../common/manager");
+const stringBuilder = require("../common/helpers");
+const validate = require("../common/validations");
 
 const handleApiCall = (req, res) => {
   manager.app.models
