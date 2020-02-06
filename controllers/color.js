@@ -3,8 +3,11 @@ const stringBuilder = require("../common/helpers");
 const validate = require("../common/validations");
 
 const handleApiCall = (req, res) => {
+  const { input, viaBytes } = req.body;
+  const imageData = viaBytes ? { base64: input.substring(23) } : input;
+
   manager.app.models
-    .predict(Clarifai.COLOR_MODEL, req.body.input)
+    .predict(Clarifai.COLOR_MODEL, imageData)
     .then(data => {
       if (validate.isExisting(data)) {
         const colors = data.outputs[0].data.colors.sort(

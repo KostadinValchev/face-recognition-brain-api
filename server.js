@@ -13,7 +13,8 @@ const general = require("./controllers/general");
 const color = require("./controllers/color");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '20mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '20mb', extended: true}))
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -72,4 +73,4 @@ app.listen(process.env.PORT || 3000, () => {
   console.log(`App is running on port ${process.env.POST}`);
 });
 
-export default app;
+module.exports = app;

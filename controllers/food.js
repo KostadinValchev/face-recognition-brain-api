@@ -3,11 +3,15 @@ const stringBuilder = require("../common/helpers");
 const validate = require("../common/validations");
 
 const handleApiCall = (req, res) => {
+  const { input, viaBytes } = req.body;
+  const imageData = viaBytes ? { base64: input.substring(23) } : input;
+
   manager.app.models
-    .predict(Clarifai.FOOD_MODEL, req.body.input)
+    .predict(Clarifai.FOOD_MODEL, imageData)
     .then(data => {
       if (validate.isExisting(data)) res.json(data);
     })
+    .then(data => console.log(data))
     .catch(err => res.status(400).json("unable to work with API"));
 };
 
