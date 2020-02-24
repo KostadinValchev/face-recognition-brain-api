@@ -21,6 +21,18 @@ const handleSignIn = (req, res, db, bcrypt) => {
     .catch(err => res.status(400).json("wrong credentials"));
 };
 
+const handleFacebookSignIn = (req, res, db) => {
+  const { email } = req.body;
+  db.select("*")
+    .from("users")
+    .where("email", "=", email)
+    .then(user => {
+      res.json(user[0]);
+    })
+    .catch(err => res.status(400).json("wrong facebook credentials"));
+};
+
 module.exports = {
-  handleSignIn
+  handleSignIn,
+  handleFacebookSignIn
 };

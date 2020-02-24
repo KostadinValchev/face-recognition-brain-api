@@ -29,6 +29,15 @@ const handleRegister = (req, res, db, bcrypt) => {
   }).catch(err => res.status(400).json("unable to register"));
 };
 
+const handleFacebookRegister = (req, res, db) => {
+  const { email, name } = req.body;
+  if (!email || !name) {
+    return res.status(400).json("incorrect form submission");
+  }
+  return db("users").insert({ email: email, name: name }).then(user => console.log(user))
+};
+
 module.exports = {
-  handleRegister: handleRegister
+  handleRegister: handleRegister,
+  handleFacebookRegister
 };

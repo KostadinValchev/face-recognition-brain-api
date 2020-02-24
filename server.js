@@ -13,8 +13,8 @@ const general = require("./controllers/general");
 const color = require("./controllers/color");
 
 const app = express();
-app.use(bodyParser.json({limit: '20mb', extended: true}))
-app.use(bodyParser.urlencoded({limit: '20mb', extended: true}))
+app.use(bodyParser.json({ limit: "20mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -24,7 +24,13 @@ app.get("/", (req, res) => {
 app.post("/signin", (req, res) => {
   signIn.handleSignIn(req, res, manager.db, bcrypt);
 });
+app.post("/facebook-signin", (req, res) => {
+  signIn.handleFacebookSignIn(req, res, manager.db);
+});
 app.post("/register", (req, res) => {
+  register.handleRegister(req, res, manager.db, bcrypt);
+});
+app.post("/facebook-register", (req, res) => {
   register.handleRegister(req, res, manager.db, bcrypt);
 });
 app.put("/resetpass", (req, res) => {

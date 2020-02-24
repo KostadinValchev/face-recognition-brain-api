@@ -5,7 +5,6 @@ const validate = require("../common/validations");
 const handleApiCall = (req, res) => {
   const { input, viaBytes } = req.body;
   const imageData = viaBytes ? { base64: input.substring(23) } : input;
-
   manager.app.models
     .predict(Clarifai.COLOR_MODEL, imageData)
     .then(data => {
@@ -13,7 +12,7 @@ const handleApiCall = (req, res) => {
         const colors = data.outputs[0].data.colors.sort(
           (a, b) => b.value - a.value
         );
-        res.json({ colors, imageUrl: data.outputs[0].input.data.image.url });
+        res.json({ colors, image: data.outputs[0].input.data.image.url });
       }
     })
     .catch(err => res.status(400).json("unable to work with API"));
