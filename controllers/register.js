@@ -30,14 +30,32 @@ const handleRegister = (req, res, db, bcrypt) => {
 };
 
 const handleFacebookRegister = (req, res, db) => {
-  const { email, name } = req.body;
-  if (!email || !name) {
+  const { email, name, userid } = req.body;
+
+  if (!email || !name || !userid) {
     return res.status(400).json("incorrect form submission");
   }
-  return db("users").insert({ email: email, name: name }).then(user => console.log(user))
+  db.transaction(trx => {
+    trx
+      .insert({
+        email: email,
+        userid: userid
+      })
+      .into("facebook_login")
+      .returning("email")
+      .then(loginEmail => {
+        return trx("users")
+          .returning("*")
+          .insert({ email: loginEmail[0], name: name, joined: new Date() })
+          .then(user => res.json(user[0]))
+          .then(trx.commit)
+          .catch(trx.rollback);
+      })
+      .catch(err => res.status(400).json(err));
+  });
 };
 
 module.exports = {
   handleRegister: handleRegister,
-  handleFacebookRegister
+  handleFacebookRegister: handleFacebookRegister
 };

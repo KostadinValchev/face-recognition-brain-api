@@ -27,17 +27,22 @@ app.post("/signin", (req, res) => {
 app.post("/facebook-signin", (req, res) => {
   signIn.handleFacebookSignIn(req, res, manager.db);
 });
+
 app.post("/register", (req, res) => {
   register.handleRegister(req, res, manager.db, bcrypt);
 });
 app.post("/facebook-register", (req, res) => {
-  register.handleRegister(req, res, manager.db, bcrypt);
+  register.handleFacebookRegister(req, res, manager.db);
 });
+
 app.put("/resetpass", (req, res) => {
   profile.handleResetPassword(req, res, manager.db, bcrypt);
 });
 app.get("/profile/:id", (req, res) => {
   profile.handleProfile(req, res, manager.db);
+});
+app.get("/facebook-profile/:id", (req, res) => {
+  profile.handleFacebookProfile(req, res, manager.db);
 });
 
 app.put("/image", (req, res) => {

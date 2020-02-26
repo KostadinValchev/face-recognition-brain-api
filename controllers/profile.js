@@ -13,6 +13,20 @@ const handleProfile = (req, res, db) => {
     .catch(err => res.status(400).json("error getting user"));
 };
 
+const handleFacebookProfile = (req, res, db) => {
+  const userid = req.params.id;
+  db.select("*")
+    .from("facebook_login")
+    .where({ userid })
+    .then(user => {
+      if (user.length) {
+        res.status(200).json("user is authenticated");
+      } else {
+        res.status(204).json("no such a user with facebook credentials");
+      }
+    });
+};
+
 const handleResetPassword = (req, res, db, bcrypt) => {
   const { email, password, newPassword } = req.body;
   db.select("email", "hash")
@@ -38,5 +52,6 @@ const handleResetPassword = (req, res, db, bcrypt) => {
 
 module.exports = {
   handleProfile,
+  handleFacebookProfile,
   handleResetPassword
 };
