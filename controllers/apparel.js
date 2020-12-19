@@ -8,31 +8,31 @@ const handleApiCall = (req, res) => {
 
   manager.app.models
     .predict(Clarifai.APPAREL_MODEL, imageData)
-    .then(data => {
+    .then((data) => {
       if (validate.isExisting(data)) res.json(data);
     })
-    .catch(err => res.status(400).json("unable to work with API"));
+    .catch((err) => res.status(400).json("unable to work with API"));
 };
 
-const handleImage = (req, res, db) => {
+const incrementEntries = (req, res, db) => {
   const { id } = req.body;
   db("users")
     .where("id", "=", id)
     .increment("apparel_entries", 1)
     .increment("entries", 1)
     .returning(["entries", "apparel_entries"])
-    .then(data => {
+    .then((data) => {
       if (validate.isExisting(data)) {
         const result = stringBuilder.buildCountersResults(data[0]);
         res.status(200).json(result);
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(400).json("unable to get apparel entries");
     });
 };
 
 module.exports = {
   handleApiCall,
-  handleImage
+  incrementEntries,
 };

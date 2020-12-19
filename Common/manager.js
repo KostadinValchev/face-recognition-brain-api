@@ -2,16 +2,16 @@ const Clarifai = require("../node_modules/clarifai");
 const knex = require("../node_modules/knex");
 
 const app = new Clarifai.App({
-  apiKey: "f60eec73097b400cbc22c65efe1093b3"
+  apiKey: ""
 });
 
 var db = knex({
-  client: "pg",
+  client: "",
   connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "0889123902",
-    database: "smartbrain"
+    host: "",
+    user: "",
+    password: "",
+    database: ""
   }
 });
 
