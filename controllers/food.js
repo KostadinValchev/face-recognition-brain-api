@@ -8,32 +8,32 @@ const handleApiCall = (req, res) => {
 
   manager.app.models
     .predict(Clarifai.FOOD_MODEL, imageData)
-    .then(data => {
+    .then((data) => {
       if (validate.isExisting(data)) res.json(data);
     })
-    .then(data => console.log(data))
-    .catch(err => res.status(400).json("unable to work with API"));
+    .then((data) => console.log(data))
+    .catch((err) => res.status(400).json("unable to work with API"));
 };
 
-const incrementEntries = (req, res, db) => {
+const increaseEntries = (req, res, db) => {
   const { id } = req.body;
   db("users")
     .where("id", "=", id)
     .increment("food_entries", 1)
     .increment("entries", 1)
     .returning(["entries", "food_entries"])
-    .then(data => {
+    .then((data) => {
       if (validate.isExisting(data)) {
         const result = stringBuilder.buildCountersResults(data[0]);
         res.status(200).json(result);
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(400).json("unable to get food entries");
     });
 };
 
 module.exports = {
   handleApiCall,
-  incrementEntries
+  increaseEntries,
 };

@@ -14,7 +14,7 @@ const handleApiCall = (req, res) => {
     .catch((err) => res.status(400).json("unable to work with API"));
 };
 
-const incrementEntries = (req, res, db) => {
+const increaseEntries = (req, res, db) => {
   const { id } = req.body;
   db("users")
     .where("id", "=", id)
@@ -34,5 +34,5 @@ const incrementEntries = (req, res, db) => {
 
 module.exports = {
   handleApiCall,
-  incrementEntries,
+  increaseEntries,
 };
